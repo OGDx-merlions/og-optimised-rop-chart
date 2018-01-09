@@ -147,9 +147,9 @@
       this._prepareChartingArea();
       this._prepareAxes(data);
       this._drawGridLines(data);
+      this._drawAxes(data);
       this._drawCurrentDepthSeparator(data);
       this._drawChart(data);
-      this._drawAxes(data);
 
       this.fire("chart-drawn", {});
     },
