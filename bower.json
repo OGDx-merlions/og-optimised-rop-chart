@@ -23,15 +23,18 @@
     "*.enc"
   ],
   "dependencies": {
-    "polymer": "^1.9.0"
+    "polymer": "^1.9.0",
+    "px-d3-imports": "^2.1.0"
   },
   "devDependencies": {
     "px-headings-design": "^1.0.0",
-        "px-layout-design": "^1.0.0",
-        "px-toggle-design": "^2.0.0",
+    "px-layout-design": "^1.0.0",
+    "px-toggle-design": "^2.0.0",
     "px-starter-kit-design": "^1.0.0",
     "px-demo": "^2.0.0",
-    "px-theme": "^3.0.0"
+    "px-theme": "^3.0.0",
+    "px-spacing-design": "^1.0.3",
+    "px-dark-theme": "^2.2.1"
   },
   "resolutions": {
     "webcomponentsjs": "^0.7.0"

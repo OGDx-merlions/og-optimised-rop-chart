@@ -5,6 +5,9 @@
 -->
 <link rel="import" href="../polymer/polymer.html"/>
 
+<link rel="import" href="../px-d3-imports/px-d3-imports.html"/>
+<script src="d3-tip.js"></script>
+
 <link rel="import" href="css/og-optimised-rop-chart-styles.html">
 
 <!--
@@ -12,7 +15,13 @@ REPLACE THIS TEXT WITH A COMPONENT DESCRIPTION
 
 ### Usage
 
-    <og-optimised-rop-chart counter-value="1"></og-optimised-rop-chart>
+    <og-optimised-rop-chart
+      width="960"
+      height="300"
+      margin='{"top":20,"right":20,"bottom":30,"left":50}'
+      data='{"current":{"x":[1,2,3],"optimised":[2,4,5],"actual":[1,2,2]},"forecast":{"x":[3,4,5],"recommended":[5,6,6]}}'
+      axis-data='{"x":{"color":"","axisLabel":"Measured Depth","unit":"","tickFormat":"","tickTimeFormat":"","hideGrid":true,"d3NiceType":"","niceTicks":0,"start":0,"axisColor":"#c1c0c0","tickColor":"#c1c0c0"},"y":{"hideGrid":false,"axisLabel":"Rate of Penetration","axisColor":"#c1c0c0","tickColor":"#c1c0c0","niceTicks":6,"tickFormat":"","start":0,"dotRadius":2,"actualRop":{"color":"#518bb4","dashArray":"","radius":4,"circleStroke":"#518bb4","legendLabel":"Actual ROP","unit":"ft/hr","interpolation":""},"optimisedRop":{"color":"#f05c56","dashArray":"","legendLabel":"Optimized ROP","unit":"ft/hr","interpolation":""},"recommendedRop":{"color":"#f05c56","dashArray":"2,2","unit":"ft/hr","legendLabel":"Recommended ROP","interpolation":""},"currentDepth":{"color":"#c1c0c0","dashArray":"","unit":"ft","legendLabel":"Current Depth"}}}'>
+    </og-optimised-rop-chart>
 
 @element og-optimised-rop-chart
 @blurb REPLACE THIS TEXT WITH A COMPONENT DESCRIPTION
@@ -23,8 +32,43 @@ REPLACE THIS TEXT WITH A COMPONENT DESCRIPTION
 <dom-module id="og-optimised-rop-chart">
   <template>
     <style include="og-optimised-rop-chart-styles"></style>
-    <a href="javascript:" on-click="handleClick">Click here to increment counter:</a>
-    <span>{{counterValue}}</span>
+    <div class="flex flex--col chart-container">
+      <div class="flex flex--col">
+        <div class$="flex flex--[[legendAlignment]] legend">
+          <div class="flex flex--row">
+            <div class="flex flex__item flex--col u-pr++ zeta legend-unit" data-id="actual"
+              style$="border-color: [[axisData.y.actualRop.color]]" on-tap="_toggleSeries">
+              <span class="flex flex--top muted">[[axisData.y.actualRop.legendLabel]]</span>
+              <span class="flex flex--bottom muted">[[axisData.y.actualRop.unit]]</span>
+            </div>
+            <div class="flex flex__item flex--col u-pr++ zeta legend-unit" data-id="optimised"
+              style$="border-color: [[axisData.y.optimisedRop.color]]" on-tap="_toggleSeries">
+              <span class="flex flex--top muted">[[axisData.y.optimisedRop.legendLabel]]</span>
+              <span class="flex flex--bottom muted">[[axisData.y.optimisedRop.unit]]</span>
+            </div>
+            <div class="flex flex__item flex--col u-pr++ zeta legend-unit dashed-border" data-id="recommended"
+              style$="border-color: [[axisData.y.recommendedRop.color]];" on-tap="_toggleSeries">
+              <span class="flex flex--top muted">[[axisData.y.recommendedRop.legendLabel]]</span>
+              <span class="flex flex--bottom muted">[[axisData.y.recommendedRop.unit]]</span>
+            </div>
+            <div class="flex flex__item flex--col u-pr++ zeta legend-unit dashed-border" data-id="currentDepth" 
+              style$="border-color: [[axisData.y.currentDepth.color]]" on-tap="_toggleSeries">
+              <span class="flex flex--top muted">[[axisData.y.currentDepth.legendLabel]]</span>
+              <span class="flex flex--bottom muted">[[axisData.y.currentDepth.unit]]</span>
+            </div>
+            <div class="toggle-chart" on-tap="_toggleChartType">
+              <px-icon icon="px-vis:closest-point-series" 
+                hidden$="[[_hideChartTypeIcon('scatter', currentChartType)]]"></px-icon>
+              <px-icon icon="px-nav:data-resolution" 
+                hidden$="[[_hideChartTypeIcon('line', currentChartType)]]"></px-icon>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="flex flex--col">
+        <div id="chart"></div>
+      </div>
+    </div>
   </template>
 </dom-module>
 <script src="dist/og-optimised-rop-chart.js"></script>

@@ -9,6 +9,7 @@
 <link rel="import" href="../../px-demo/px-demo-props.html" />
 <link rel="import" href="../../px-demo/px-demo-interactive.html" />
 <link rel="import" href="../../px-demo/px-demo-component-snippet.html" />
+<link rel="import" href="../../px-demo/px-demo-code-editor.html" />
 
 <!-- Imports for this component -->
 <link rel="import" href="../../px-demo/css/px-demo-styles.html" />
@@ -33,10 +34,13 @@
       <!-- Props -->
       <px-demo-props props="{{props}}" config="[[chosenConfig]]"></px-demo-props>
 
+      <px-demo-code-editor slot="px-demo-code-editor" props="{{props}}" config="[[chosenConfig]]"></px-demo-code-editor>
+
       <!-- Component ---------------------------------------------------------->
       <px-demo-component>
         <og-optimised-rop-chart
-          counter-value="{{props.counterValue.value}}">
+          data="{{props.data.value}}" margin="{{props.margin.value}}"
+          width="{{props.width.value}}" height="{{props.height.value}}">
         </og-optimised-rop-chart>
       </px-demo-component>
       <!-- END Component ------------------------------------------------------>
@@ -197,10 +201,93 @@
      * A reference for `this.props`. Read the documentation there.
      */
     demoProps: {
-      counterValue: {
+      width: {
         type: Number,
-        defaultValue: '0',
+        defaultValue: 960,
         inputType: 'text'
+      },
+      height: {
+        type: Number,
+        defaultValue: 300,
+        inputType: 'text'
+      },
+      margin: {
+        type: Object,
+        defaultValue: {top: 20, right: 20, bottom: 30, left: 50},
+        inputType: 'code:JSON'
+      },
+      data: {
+        type: Array,
+        defaultValue: {
+          "current": {
+            "x": [1,2,3], 
+            "optimised": [2,4,5], 
+            "actual": [1,2,2]
+          }, 
+          "forecast": {
+            "x": [3,4,5], 
+            "recommended": [5,6,6]
+          }
+        },
+        inputType: 'code:JSON'
+      },
+      axisData: {
+        type: Object,
+        defaultValue: {
+          "x": {
+            "color": "",
+            "axisLabel": "Measured Depth",
+            "unit": "",
+            "tickFormat": "",
+            "tickTimeFormat": "",
+            "hideGrid": true,
+            "d3NiceType": "",
+            "niceTicks": 0,
+            "start": 0,
+            "axisColor": "#c1c0c0",
+            "tickColor": "#c1c0c0"
+          },
+          "y": {
+            "hideGrid": false,
+            "axisLabel": "Rate of Penetration",
+            "axisColor": "#c1c0c0",
+            "tickColor": "#c1c0c0",
+            "niceTicks": 6,
+            "tickFormat": "",
+            "start": 0,
+            "dotRadius": 2, 
+            "actualRop": {
+              "color": "#518bb4",
+              "dashArray": "",
+              "radius": 4,
+              "circleStroke": "#518bb4",
+              "legendLabel": "Actual ROP",
+              "unit": "ft/hr",
+              "interpolation": ""
+            },
+            "optimisedRop": {
+              "color": "#f05c56",
+              "dashArray": "",
+              "legendLabel": "Optimized ROP",
+              "unit": "ft/hr",
+              "interpolation": ""
+            },
+            "recommendedRop": {
+              "color": "#f05c56",
+              "dashArray": "2,2",
+              "unit": "ft/hr",
+              "legendLabel": "Recommended ROP",
+              "interpolation": ""
+            },
+            "currentDepth": {
+              "color": "#c1c0c0",
+              "dashArray": "",
+              "unit": "ft",
+              "legendLabel": "Current Depth"
+            }
+          }
+        },
+        inputType: 'code:JSON'
       }
     }
   });
