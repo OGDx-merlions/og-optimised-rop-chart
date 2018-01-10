@@ -42,10 +42,7 @@
       * @property data
       */
       data: {
-				type: Array,
-				value() {
-					return [];
-				},
+				type: Object,
 				observer: '_redraw'
       },
       /**

@@ -16,7 +16,7 @@
       * Format: {"current": {"x": [1,2,3], "optimised": [1,2,3], "actual": [2,4,5]}, 
         "forecast": {"x": [1,2,3], "recommended": [1,2,3]}
       * @property data
-      */data:{type:Array,value:function value(){return[]},observer:'_redraw'},/**
+      */data:{type:Object,observer:'_redraw'},/**
        * Axis Data
        *
        * @property axisData
