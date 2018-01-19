@@ -430,6 +430,10 @@
     _hideChartTypeIcon(type, currentChartType) {
       currentChartType = currentChartType || 'line';
       return type == currentChartType;
+    },
+
+    _isNotEmpty(str) {
+      return str && str.length > 0;
     }
   });
 })();

@@ -37,26 +37,34 @@ REPLACE THIS TEXT WITH A COMPONENT DESCRIPTION
         <div class$="flex flex--[[legendAlignment]] legend">
           <div class="flex flex--row u-1/1">
             <div class="flex flex--row u-3/4 u-pl++">
-              <div class="flex flex__item flex--col u-pr++ zeta legend-unit" data-id="actual"
-                style$="border-color: [[axisData.y.actualRop.color]]" on-tap="_toggleSeries">
-                <span class="flex flex--top muted">[[axisData.y.actualRop.legendLabel]]</span>
-                <span class="flex flex--bottom muted">[[axisData.y.actualRop.unit]]</span>
-              </div>
-              <div class="flex flex__item flex--col u-pr++ zeta legend-unit" data-id="optimised"
-                style$="border-color: [[axisData.y.optimisedRop.color]]" on-tap="_toggleSeries">
-                <span class="flex flex--top muted">[[axisData.y.optimisedRop.legendLabel]]</span>
-                <span class="flex flex--bottom muted">[[axisData.y.optimisedRop.unit]]</span>
-              </div>
-              <div class="flex flex__item flex--col u-pr++ zeta legend-unit dashed-border" data-id="recommended"
-                style$="border-color: [[axisData.y.recommendedRop.color]];" on-tap="_toggleSeries">
-                <span class="flex flex--top muted">[[axisData.y.recommendedRop.legendLabel]]</span>
-                <span class="flex flex--bottom muted">[[axisData.y.recommendedRop.unit]]</span>
-              </div>
-              <div class="flex flex__item flex--col u-pr++ zeta legend-unit dashed-border" data-id="currentDepth" 
-                style$="border-color: [[axisData.y.currentDepth.color]]" on-tap="_toggleSeries">
-                <span class="flex flex--top muted">[[axisData.y.currentDepth.legendLabel]]</span>
-                <span class="flex flex--bottom muted">[[axisData.y.currentDepth.unit]]</span>
-              </div>
+              <template is="dom-if" if="[[_isNotEmpty(axisData.y.actualRop.legendLabel)]]">
+                <div class="flex flex__item flex--col u-pr++ zeta legend-unit" data-id="actual"
+                  style$="border-color: [[axisData.y.actualRop.color]]" on-tap="_toggleSeries">
+                  <span class="flex flex--top muted">[[axisData.y.actualRop.legendLabel]]</span>
+                  <span class="flex flex--bottom muted">[[axisData.y.actualRop.unit]]</span>
+                </div>
+              </template>
+              <template is="dom-if" if="[[_isNotEmpty(axisData.y.optimisedRop.legendLabel)]]">
+                <div class="flex flex__item flex--col u-pr++ zeta legend-unit" data-id="optimised"
+                  style$="border-color: [[axisData.y.optimisedRop.color]]" on-tap="_toggleSeries">
+                  <span class="flex flex--top muted">[[axisData.y.optimisedRop.legendLabel]]</span>
+                  <span class="flex flex--bottom muted">[[axisData.y.optimisedRop.unit]]</span>
+                </div>
+              </template>
+              <template is="dom-if" if="[[_isNotEmpty(axisData.y.recommendedRop.legendLabel)]]">
+                <div class="flex flex__item flex--col u-pr++ zeta legend-unit dashed-border" data-id="recommended"
+                  style$="border-color: [[axisData.y.recommendedRop.color]];" on-tap="_toggleSeries">
+                  <span class="flex flex--top muted">[[axisData.y.recommendedRop.legendLabel]]</span>
+                  <span class="flex flex--bottom muted">[[axisData.y.recommendedRop.unit]]</span>
+                </div>
+              </template>
+              <template is="dom-if" if="[[_isNotEmpty(axisData.y.currentDepth.legendLabel)]]">
+                <div class="flex flex__item flex--col u-pr++ zeta legend-unit dashed-border" data-id="currentDepth" 
+                  style$="border-color: [[axisData.y.currentDepth.color]]" on-tap="_toggleSeries">
+                  <span class="flex flex--top muted">[[axisData.y.currentDepth.legendLabel]]</span>
+                  <span class="flex flex--bottom muted">[[axisData.y.currentDepth.unit]]</span>
+                </div>
+              </template>
             </div>
             <div class="flex flex--center toggle-chart u-1/4">
               <px-icon icon="px-vis:closest-point-series" 
